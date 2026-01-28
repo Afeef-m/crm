@@ -17,8 +17,6 @@ export default function CompanyHeader() {
 
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm">
-
-      {/* HEADER */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Image src="/logo.svg" alt="logo" width={48} height={48} />
@@ -37,8 +35,6 @@ export default function CompanyHeader() {
           </button>
         </div>
       </div>
-
-      {/* TABS */}
       <div className="flex gap-5 mt-4">
         {tabs.map((tab) => {
           const isActive = activeTab === tab;
@@ -59,8 +55,6 @@ export default function CompanyHeader() {
           );
         })}
       </div>
-
-      {/* TAB CONTENT */}
       <div className="mt-6">
         {activeTab === "Company" ? (
           <CompanyDetails />
@@ -71,8 +65,6 @@ export default function CompanyHeader() {
           </div>
         )}
       </div>
-
-      {/* FOOTER (ALWAYS VISIBLE) */}
       <div className="border-t mt-6 pt-4" />
 
       <div className="flex items-center justify-between text-sm text-gray-500">

@@ -58,7 +58,7 @@ function Stakeholders() {
 
 export default function RightPanel() {
   return (
-    <aside className="bg-white rounded-lg shadow-sm p-4 h-[calc(100vh-7rem)] sticky top-20 overflow-y-auto">
+    <aside className="bg-white rounded-lg shadow-sm p-4">
      <div className="flex items-center justify-between mb-4 pb-3 border-b">
   
   {/* LEFT ICON GROUP */}
