@@ -3,29 +3,33 @@
 import { useState } from "react";
 import SalesTable from "../sales/salesTable";
 
-const tabs = ["Company", "Activities", "Contacts", "Sales", "Requests"];
+const tabs = ["Activities", "Contacts", "Projects", "Sales", "Requests"];
 
 export default function CompanyTabs() {
   const [active, setActive] = useState("Sales");
 
   return (
     <div className="bg-white rounded-lg shadow-sm">
-      <div className="flex border-b">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActive(tab)}
-            className={`px-4 py-3 text-sm font-medium border-b-2 ${
-              active === tab
-                ? "border-emerald-600 text-emerald-600"
-                : "border-transparent text-gray-500"
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
-
+      <div className="flex gap-2 px-4 pt-4">
+  {tabs.map((tab) => {
+    const isActive = active === tab;
+    return (
+      <button
+        key={tab}
+        onClick={() => setActive(tab)}
+        className={`px-4 py-2 text-sm font-medium rounded-full transition
+          ${
+            isActive
+              ? "bg-emerald-100 text-emerald-700"
+              : "text-gray-500 hover:text-gray-700"
+          }
+        `}
+      >
+        {tab}
+      </button>
+    );
+  })}
+</div>
       <div className="p-4">
         {active === "Sales" && <SalesTable />}
         {active !== "Sales" && (
