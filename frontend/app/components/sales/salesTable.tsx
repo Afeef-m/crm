@@ -7,9 +7,10 @@ import {
   RotateCw,
   Trash2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddSaleModal from "./addSale";
 import { Sale } from "@/app/types/sale";
+import { API_BASE_URL } from "@/app/lib/api";
 
 const statusStyle: Record<string, string> = {
   Open: "bg-emerald-100 text-emerald-700",
@@ -21,32 +22,40 @@ const statusStyle: Record<string, string> = {
 const ITEMS_PER_PAGE = 3;
 
 export default function SalesTable() {
-  const [sales, setSales] = useState<Sale[]>([
-    {
-      status: "Open",
-      saleDate: "01/02/2025",
-      amount: "17,344.00",
-      stage: "Proposal (60%)",
-      nextActivity: "06/11/2024",
-      name: "45 Components - RTS",
-    },
-    {
-      status: "Lost",
-      saleDate: "07/07/2024",
-      amount: "3,200.00",
-      stage: "Lost",
-      nextActivity: "07/07/2024",
-      name: "Premium Support",
-    },
-  ]);
+  const [sales, setSales] = useState<Sale[]>([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+  fetch(`${API_BASE_URL}/sales`)
+    .then((res) => res.json())
+    .then((data) => {
+      setSales(data);
+      setLoading(false);
+    });
+}, []);
+
+async function handleAddSale(newSale: Sale) {
+  await fetch(`${API_BASE_URL}/sales`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newSale),
+  });
+
+  const res = await fetch(`${API_BASE_URL}/sales`);
+  const updated = await res.json();
+  setSales(updated);
+  setPage(1);
+}
 
   const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE);
 
   const start = (page - 1) * ITEMS_PER_PAGE;
   const paginatedSales = sales.slice(start, start + ITEMS_PER_PAGE);
-
+if (loading) {
+  return <div className="p-4 text-sm text-gray-500">Loading sales…</div>;
+}
   return (
     <div className="overflow-hidden rounded-lg ">
       <table className="w-full text-sm">
@@ -95,7 +104,7 @@ export default function SalesTable() {
               </td>
 
               <td>{s.saleDate}</td>
-              <td>€ {s.amount}</td>
+              <td>{s.amount}</td>
               <td>{s.stage}</td>
               <td>{s.nextActivity}</td>
               <td className="text-emerald-700 font-medium">{s.name}</td>
@@ -136,7 +145,7 @@ export default function SalesTable() {
       {open && (
         <AddSaleModal
           onClose={() => setOpen(false)}
-          onAdd={(newSale) => setSales((prev) => [...prev, newSale])}
+          onAdd={handleAddSale}
         />
       )}
 
