@@ -1,4 +1,4 @@
-import { BadgeDollarSign, Calendar1, ListPlus, NotepadText, PanelBottomOpen, PanelTopOpen, Sparkles } from "lucide-react";
+import { BadgeDollarSign, Calendar1, ListPlus, NotepadText, Sparkles } from "lucide-react";
 
 function PreviewCard() {
   return (
