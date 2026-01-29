@@ -136,7 +136,6 @@ if (loading) {
           Export
         </button>
 
-        {/* PUSH TO RIGHT */}
         <button className="ml-auto inline-flex items-center hover:text-gray-700">
           <RotateCw size={16} />
         </button>
@@ -149,7 +148,6 @@ if (loading) {
         />
       )}
 
-      {/* PAGINATION */}
       <div className="flex items-center justify-end gap-3 px-4 pb-4 text-sm text-gray-500">
         <button
           disabled={page === 1}
