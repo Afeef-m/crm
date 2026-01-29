@@ -8,6 +8,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",          
+      "https://crm-orpin-nine.vercel.app" ,
       "https://crm-orpin-nine.vercel.app/company"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
